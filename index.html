@@ -444,49 +444,49 @@
       </div>
     </div>
 
+    <!-- DATE -->
+    <div class="field">
+      <label>
+        <span class="fr-text">Date souhaitée</span>
+        <span class="ar-text" style="display:none">التاريخ المطلوب</span>
+      </label>
+      <input type="date" id="date">
+      <div class="error-msg" id="date-err">
+        <span class="fr-text">Veuillez choisir une date</span>
+        <span class="ar-text" style="display:none">يرجى اختيار تاريخ</span>
+      </div>
+    </div>
+
+    <!-- HEURE -->
+    <div class="field">
+      <label>
+        <span class="fr-text">Heure souhaitée</span>
+        <span class="ar-text" style="display:none">الوقت المطلوب</span>
+      </label>
+      <select id="heure">
+        <option value="" disabled selected>Choisir une heure...</option>
+        <option value="08:00">08:00</option>
+        <option value="08:30">08:30</option>
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+      </select>
+      <div class="error-msg" id="heure-err">
+        <span class="fr-text">Veuillez choisir une heure</span>
+        <span class="ar-text" style="display:none">يرجى اختيار وقت</span>
+      </div>
+    </div>
+
     <!-- NOTE -->
-
-    <!-- DATE & HEURE -->
-<div class="field">
-  <label>
-    <span class="fr-text">Date souhaitée</span>
-    <span class="ar-text" style="display:none">التاريخ المطلوب</span>
-  </label>
-  <input type="date" id="date" min="{{ today }}">
-  <div class="error-msg" id="date-err">
-    <span class="fr-text">Veuillez choisir une date</span>
-    <span class="ar-text" style="display:none">يرجى اختيار تاريخ</span>
-  </div>
-</div>
-
-<!-- HEURE -->
-<div class="field">
-  <label>
-    <span class="fr-text">Heure souhaitée</span>
-    <span class="ar-text" style="display:none">الوقت المطلوب</span>
-  </label>
-  <select id="heure">
-    <option value="" disabled selected>Choisir une heure...</option>
-    <option value="08:00">08:00</option>
-    <option value="08:30">08:30</option>
-    <option value="09:00">09:00</option>
-    <option value="09:30">09:30</option>
-    <option value="10:00">10:00</option>
-    <option value="10:30">10:30</option>
-    <option value="11:00">11:00</option>
-    <option value="11:30">11:30</option>
-    <option value="14:00">14:00</option>
-    <option value="14:30">14:30</option>
-    <option value="15:00">15:00</option>
-    <option value="15:30">15:30</option>
-    <option value="16:00">16:00</option>
-    <option value="16:30">16:30</option>
-  </select>
-  <div class="error-msg" id="heure-err">
-    <span class="fr-text">Veuillez choisir une heure</span>
-    <span class="ar-text" style="display:none">يرجى اختيار وقت</span>
-  </div>
-</div>
     <div class="field">
       <label>
         <span class="fr-text">Motif / Note <span style="color:var(--muted);font-weight:400">(optionnel)</span></span>
@@ -587,27 +587,6 @@
     }
 
     // Service
-     // Date
-if (!document.getElementById('date').value) {
-  document.getElementById('date').classList.add('error');
-  document.getElementById('date-err').classList.add('show');
-  valid = false;
-} else {
-  document.getElementById('date').classList.remove('error');
-  document.getElementById('date-err').classList.remove('show');
-}
-
-// Heure
-if (!document.getElementById('heure').value) {
-  document.getElementById('heure').classList.add('error');
-  document.getElementById('heure-err').classList.add('show');
-  valid = false;
-} else {
-  document.getElementById('heure').classList.remove('error');
-  document.getElementById('heure-err').classList.remove('show');
-}
-
-    
     if (!service) {
       document.getElementById('service').classList.add('error');
       document.getElementById('service-err').classList.add('show');
@@ -629,20 +608,19 @@ if (!document.getElementById('heure').value) {
     btn.disabled = true;
 
     const payload = {
-     telegram_id: telegramId,
-  nom: document.getElementById('nom').value.trim(),
-  telephone: '+213' + document.getElementById('tel').value.trim().replace(/\s/g, ''),
-  service: document.getElementById('service').value,
-  date: document.getElementById('date').value,
-  heure: document.getElementById('heure').value,
-  note: document.getElementById('note').value.trim(),
-  timestamp: new Date().toISOString()
+      telegram_id: telegramId,
+      nom: document.getElementById('nom').value.trim(),
+      telephone: '+213' + document.getElementById('tel').value.trim().replace(/\s/g, ''),
+      service: document.getElementById('service').value,
+      date: document.getElementById('date').value,
+      heure: document.getElementById('heure').value,
+      note: document.getElementById('note').value.trim(),
+      timestamp: new Date().toISOString()
     };
 
     try {
       // ⬇️ Remplacez cette URL par votre webhook n8n (Node 06)
-      const WEBHOOK_URL = 'https://topschool.duckdns.org/webhook-test/mini-app-rdv';
-    
+      const WEBHOOK_URL = 'https://topschool.duckdns.org/webhook/mini-app-rdv';
 
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
